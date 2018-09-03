@@ -10,6 +10,9 @@ int alloc_ptr(void);
 int word_grade(void);
 int prime_num(void);
 
+int twoDarray(void);
+int row_column(void);
+
 int main() {
     /* you can't not initialize array with variable!
      * for example...
@@ -21,10 +24,15 @@ int main() {
     const int size = 10;
     int array[size] = {0}; // all array item is initialized by 0.
 
-    array2ptr();
-    alloc_ptr();
-    word_grade();
-    prime_num();
+    // basic pointer and arrays example
+//    array2ptr();
+//    alloc_ptr();
+//    word_grade();
+//    prime_num();
+
+    //multi-dimensional array example
+    twoDarray();
+    row_column();
 
     return 0;
 }
@@ -116,6 +124,8 @@ int prime_num(void)
     int size = 0;
     printf("input size of integer");
     scanf("%d", &size);
+    // jetbrain IDE recommands to use strtol(char* nptr, char *endptr, int base)
+    // it has benefit to check whether there was error to convert str > int.
 
     int *nums = (int *)malloc(sizeof(int) * size);
 
@@ -134,5 +144,56 @@ int prime_num(void)
             printf(" %d", i);
         }
     }
+    return 0;
+}
+
+
+
+// two dimensional examples
+int twoDarray(void)
+{
+    /* declaration of two-d arrays */
+    // 1. bad examples
+    // int array[][] = {{1, 2}, {1, 2}};
+    // int array[][] = {{1, 2}, {1, 2}};
+    int array[][2] = {{1, 2}, {1, 2}};
+    int array2[2][2] = {{1, 2}, {1, 2}};
+
+    return 0;
+}
+
+
+/* practice problem */
+int row_column(void)
+{
+    int r = 0, c = 0, i, j;
+    printf("input row, column size: ");
+    scanf("%d %d", &r, &c);
+    printf("input value: %d %d\n", r, c);
+    int **matrix = (int **)malloc(sizeof(int *) * r);
+    for(i = 0; i < r; i ++) {
+        matrix[i] = (int *)malloc(sizeof(int) * c);
+    }
+
+    for(i = 0; i < r; i ++) {
+        printf("input %d's row numbers", i);
+        for(j = 0; j < c; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    for(i = 0; i < r; i ++) {
+        for(j = 0; j < c; j ++) {
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("\n");
+    }
+
+    for(int i = 0; i < r; i ++)
+    {
+        free(matrix[i]);
+    }
+    free(matrix);
+
     return 0;
 }
